@@ -4,7 +4,7 @@
 
 ### Overview
 
-A collection of R functions that don't fit into my other packages. The code in this repository may be unpolished and/or poorly documented.
+A collection of R functions that are out of scope for my other packages. The code in this repository may be unpolished and/or poorly documented.
 
 ### Installation
 
