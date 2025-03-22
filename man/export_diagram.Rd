@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.semEff.R
 \name{export_diagram}
 \alias{export_diagram}
-\title{Export semEff diagram}
+\title{Export semEff path diagram}
 \usage{
 export_diagram(diagram, filename)
 }
@@ -12,5 +12,6 @@ export_diagram(diagram, filename)
 \item{filename}{Path to write the image.}
 }
 \description{
-Export semEff diagram
+A convenience function for exporting path diagram produced by
+\code{\link{plot.semEff}}.
 }

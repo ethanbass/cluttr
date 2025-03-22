@@ -4,7 +4,13 @@
 \alias{plot.semEff}
 \title{Plot semEff}
 \usage{
-\method{plot}{semEff}(mod, legend = FALSE, cols = c("blue", "red"))
+\method{plot}{semEff}(
+  mod,
+  legend = FALSE,
+  cols = c("blue", "red"),
+  hide_paths = c("none", "indirect", "all"),
+  hide_labels = c("none", "indirect", "all")
+)
 }
 \arguments{
 \item{mod}{An \code{\link[semEff:semEff]{semEff}} model.}
@@ -14,9 +20,22 @@
 \item{cols}{A vector of two colors to color the arrows. The first color is used
 to denote a positive effect and the second color is used to denote a negative
 effect.}
+
+\item{hide_paths}{Hide non-significant paths in the specified category:
+\code{none} (default), \code{indirect} or \code{all}.}
+
+\item{hide_labels}{Hide labels for non-significant paths in the specified
+category: \code{none} (default), \code{indirect} or \code{all}.}
 }
 \description{
-Plot semEff
+A function for plotting path diagrams from \code{\link[semEff:semEff]{semEff}}
+objects with  \code{\link[DiagrammeR:DiagrammeR]{DiagrammeR}}
+}
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+shipley.sem.eff <- semEff(shipley.sem.boot)
+plot(shipley.sem.eff)
+\dontshow{\}) # examplesIf}
 }
 \author{
 Ethan Bass

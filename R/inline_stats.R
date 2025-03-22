@@ -1,10 +1,12 @@
 #' Inline rptR
+#' @export
 inline_rpt <- function(x){
   paste0(rnd(x$R), " (95% CI: [", rnd(x$CI_emp[1]), ", ", rnd(x$CI_emp[2]), "])")
 }
 
 #' Inline emtrend
 #' @param tbl An \code{\link[emmeans:emtrends]{emmeans::emtrends}} table.
+#' @export
 
 inline_trend <- function(tbl, term, at = NULL, label = TRUE, digits = 2,
                          lab_lower = TRUE){
@@ -32,6 +34,8 @@ inline_trend <- function(tbl, term, at = NULL, label = TRUE, digits = 2,
 
 #' Inline joint test
 #' @param tbl An \code{\link[emmeans:joint_tests]{emmeans::joint_tests}} table.
+#' @export
+
 inline_jnt <- function(tbl, term, at = NULL, digits = 3){
   check_packages("gtsummary")
   if (!is.null(at)){
@@ -44,6 +48,8 @@ inline_jnt <- function(tbl, term, at = NULL, digits = 3){
 
 #' Inline ANOVA
 #' @importFrom utils tail
+#' @export
+
 inline_anova <- function(tbl, term, at=NULL, digits=3){
   check_packages("gtsummary")
   r <- tbl[which(rownames(tbl)==term),]
@@ -53,6 +59,8 @@ inline_anova <- function(tbl, term, at=NULL, digits=3){
 
 #' Inline contrast
 #' @param x An \code{\link[emmeans:contrast]{emmeans::contrast}} table.
+#' @export
+
 inline_contrast <- function(x, contrast=NULL, what=c("estimate", "ratio"),
                             by = NULL, subset = NULL, at = NULL, digits = 3,
                             label = TRUE, qval = FALSE){
@@ -99,6 +107,8 @@ inline_contrast <- function(x, contrast=NULL, what=c("estimate", "ratio"),
 }
 
 #' Inline R2
+#' @export
+
 inline_r2 <- function(m, digits = 2){
   check_packages("MuMIn")
   if (inherits(m,"lm")){

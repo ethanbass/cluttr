@@ -27,5 +27,8 @@ containing the longitudes.}
 \item{...}{Additional arguments to \code{\link[ggplot2:geom_point]{geom_point}}.}
 }
 \description{
-Map trait
+Convenience function to plot traits or other data onto a map.
+}
+\details{
+Relies on \code{ggmap}.
 }

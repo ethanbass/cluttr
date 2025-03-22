@@ -1,3 +1,5 @@
+#' Pretty ANOVA
+#' @export
 pretty_anova <- function(x, labels = NULL){
   check_packages(c("emmeans","flextable"))
   x <- emmeans::joint_tests(x)
@@ -24,23 +26,39 @@ relabel_model_terms<-function(jnt, labels){
   jnt
 }
 
+# format_emm_table <- function(tab){
+#   class(tab)
+#   check_packages("flextable")
+#   if (inherits(tab, "emmGrid")){
+#     tab <- summary(tab)
+#   }
+#   flextable::flextable(tab) |>
+#     flextable::colformat_double(j = c("emmean", "SE", "lower.CL","upper.CL"),
+#                                 digits = 3) |>
+#     flextable::set_table_properties(layout = "autofit")
+# }
+
+
+#' @noRd
 format_emm_table <- function(tab){
   check_packages("flextable")
   if (inherits(tab, "emmGrid")){
     tab <- summary(tab)
   }
   flextable::flextable(tab) |>
-    flextable::colformat_double(j = c("emmean", "SE", "lower.CL","upper.CL"), digits = 3) |>
-    flextable::set_table_properties(layout="autofit")
+    flextable::colformat_double(j = c("emmean", "SE", "lower.CL","upper.CL"),
+                                digits = 3) |>
+    flextable::set_table_properties(layout = "autofit")
 }
 
-
+#' @noRd
 format_contrast_table <- function(tab){
   check_packages("flextable")
   if (inherits(tab, "emmGrid")){
     tab <- summary(tab)
   }
   flextable::flextable(tab) |>
-    flextable::colformat_double(j = c("estimate", "SE", "t.ratio","p.value"), digits = 3) |>
-    flextable::set_table_properties(layout="autofit")
+    flextable::colformat_double(j = c("estimate", "SE", "t.ratio","p.value"),
+                                digits = 3) |>
+    flextable::set_table_properties(layout = "autofit")
 }
