@@ -3,7 +3,7 @@
 #' A function for plotting path diagrams from \code{\link[semEff:semEff]{semEff}}
 #' objects with  \code{\link[DiagrammeR:DiagrammeR]{DiagrammeR}}
 #'
-#' @param mod An \code{\link[semEff:semEff]{semEff}} model.
+#' @param x An \code{\link[semEff:semEff]{semEff}} model.
 #' @param legend Logical. Whether to include the legend. Defaults to \code{FALSE}.
 #' @param cols A vector of two colors to color the arrows. The first color is used
 #' to denote a positive effect and the second color is used to denote a negative
@@ -12,22 +12,23 @@
 #' \code{none} (default), \code{indirect} or \code{all}.
 #' @param hide_labels Hide labels for non-significant paths in the specified
 #' category: \code{none} (default), \code{indirect} or \code{all}.
+#' @param ... Additional arguments placeholder (not currently utilized).
 #' @examplesIf interactive()
 #' shipley.sem.eff <- semEff(shipley.sem.boot)
 #' plot(shipley.sem.eff)
 #' @author Ethan Bass
 #' @export
 
-plot.semEff <- function (mod, legend = FALSE, cols = c("blue", "red"),
+plot.semEff <- function (x, legend = FALSE, cols = c("blue", "red"),
                          hide_paths = c("none","indirect","all"),
-                         hide_labels = c("none","indirect","all")){
+                         hide_labels = c("none","indirect","all"), ...){
   check_packages(c("semEff", "DiagrammeR"))
   hide_paths <- match.arg(hide_paths, c("none","indirect","all"))
   hide_labels <- match.arg(hide_labels, c("none","indirect","all"))
-  tab <- semEff::getEffTable(mod)
+  tab <- semEff::getEffTable(x)
   tab$response_label <- firstup(gsub("\\.", " ", tab$response))
   tab$predictor_label <- firstup(gsub("\\.", " ", tab$predictor))
-  path_edges <- subset(tab, effect_type %in% c("direct", "indirect"))
+  path_edges <- tab[tab$effect_type %in% c("direct", "indirect"),]
 
   # Add significance indicator to the data frame
   path_edges$significant <- sapply(1:nrow(path_edges), function(i) {
@@ -42,10 +43,11 @@ plot.semEff <- function (mod, legend = FALSE, cols = c("blue", "red"),
   # Filter paths based on hide_paths option
   if (hide_paths == "all") {
     # Hide all non-significant paths
-    path_edges <- subset(path_edges, significant == TRUE)
+    path_edges <- path_edges[path_edges$significant == TRUE,]
   } else if (hide_paths == "indirect") {
     # Hide only non-significant indirect paths
-    path_edges <- subset(path_edges, significant == TRUE | effect_type == "direct")
+    path_edges <- path_edges[which(path_edges$significant == TRUE |
+                                     path_edges$effect_type == "direct"),]
   }
   # If hide_paths is "none" or anything else, keep all paths
 
@@ -155,8 +157,6 @@ plot.semEff <- function (mod, legend = FALSE, cols = c("blue", "red"),
 #'
 #' A convenience function for exporting path diagram produced by
 #' \code{\link{plot.semEff}}.
-#' @importFrom DiagrammeRsvg export_svg
-#' @importFrom rsvg rsvg_png
 #' @param diagram A diagram (output from \code{\link{plot.semEff}}).
 #' @param filename Path to write the image.
 export_diagram <- function(diagram, filename) {

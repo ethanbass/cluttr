@@ -5,15 +5,16 @@
 \title{Plot semEff}
 \usage{
 \method{plot}{semEff}(
-  mod,
+  x,
   legend = FALSE,
   cols = c("blue", "red"),
   hide_paths = c("none", "indirect", "all"),
-  hide_labels = c("none", "indirect", "all")
+  hide_labels = c("none", "indirect", "all"),
+  ...
 )
 }
 \arguments{
-\item{mod}{An \code{\link[semEff:semEff]{semEff}} model.}
+\item{x}{An \code{\link[semEff:semEff]{semEff}} model.}
 
 \item{legend}{Logical. Whether to include the legend. Defaults to \code{FALSE}.}
 
@@ -26,6 +27,8 @@ effect.}
 
 \item{hide_labels}{Hide labels for non-significant paths in the specified
 category: \code{none} (default), \code{indirect} or \code{all}.}
+
+\item{...}{Additional arguments placeholder (not currently utilized).}
 }
 \description{
 A function for plotting path diagrams from \code{\link[semEff:semEff]{semEff}}
