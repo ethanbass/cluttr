@@ -20,9 +20,9 @@
 #' @export
 map_trait <- function(map, data, trait, lat, lon, alpha = 0.8, ...){
   ggmap::ggmap(map)  +
-    ggplot2::geom_point(aes(x = .data[[lat]], y = .data[[lon]],
+    ggplot2::geom_point(aes(x = .data[[lon]], y = .data[[lat]],
                             color = .data[[trait]]),
-                        size = 2, na.rm = TRUE, data = data[!is.na(get(trait))],
+                        size = 2, na.rm = TRUE, data = data[!is.na(data[[trait]]),],
                         alpha = alpha, ...) +
     ggplot2::xlab("") + ggplot2::ylab("")
 }
