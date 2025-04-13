@@ -14,10 +14,14 @@ pretty_anova <- function(x, labels = NULL){
                       "df1" = "DF1",
                       "df2" = "DF2",
                       "p.value" = "p-value") |>
-    flextable::bold(i = ~p.value < .05, j="p.value") |>
+    flextable::bold(i = ~p.value < .05, j = "p.value") |>
     flextable::set_table_properties(layout = "autofit")
 }
 
+#' Relabel model terms
+#'
+#' Convenience function used in \code{pretty_anova}.
+#'
 #' @noRd
 relabel_model_terms<-function(jnt, labels){
   for (i in seq_along(labels)){
@@ -38,7 +42,7 @@ relabel_model_terms<-function(jnt, labels){
 #     flextable::set_table_properties(layout = "autofit")
 # }
 
-
+#' Format emmeans emmGrid
 #' @noRd
 format_emm_table <- function(tab){
   check_packages("flextable")
@@ -51,6 +55,7 @@ format_emm_table <- function(tab){
     flextable::set_table_properties(layout = "autofit")
 }
 
+#' Format emmeans contrast table
 #' @noRd
 format_contrast_table <- function(tab){
   check_packages("flextable")

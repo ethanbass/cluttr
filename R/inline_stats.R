@@ -5,6 +5,10 @@ inline_rpt <- function(x){
 }
 
 #' Inline emtrend
+#'
+#' Extract statistics from emmGrid returned by \code{emmeans::emtrend} for
+#' inline reporting.
+#'
 #' @param tbl An \code{\link[emmeans:emtrends]{emmeans::emtrends}} table.
 #' @export
 
@@ -33,6 +37,10 @@ inline_trend <- function(tbl, term, at = NULL, label = TRUE, digits = 2,
 }
 
 #' Inline joint test
+#'
+#' #' Extract statistics from \code{emmeans::joint_tests} table for
+#' inline reporting.
+#'
 #' @param tbl An \code{\link[emmeans:joint_tests]{emmeans::joint_tests}} table.
 #' @export
 
@@ -52,12 +60,16 @@ inline_jnt <- function(tbl, term, at = NULL, digits = 3){
 
 inline_anova <- function(tbl, term, at=NULL, digits=3){
   check_packages("gtsummary")
-  r <- tbl[which(rownames(tbl)==term),]
+  r <- tbl[which(rownames(tbl) == term),]
   paste0("F~", r$Df, ",", rnd(tail(tbl$Df,1)), "~ = ", rnd(r$F), "; ",
          gtsummary::style_pvalue(r$`Pr(>F)`, prepend_p = TRUE, digits = digits))
 }
 
 #' Inline contrast
+#'
+#' #' Extract statistics from emmGrid returned by \code{emmeans::contrast} for
+#' inline reporting.
+#'
 #' @param x An \code{\link[emmeans:contrast]{emmeans::contrast}} table.
 #' @export
 
@@ -108,7 +120,6 @@ inline_contrast <- function(x, contrast=NULL, what=c("estimate", "ratio"),
 
 #' Inline R2
 #' @export
-
 inline_r2 <- function(m, digits = 2){
   check_packages("MuMIn")
   if (inherits(m,"lm")){
@@ -120,6 +131,8 @@ inline_r2 <- function(m, digits = 2){
   }
 }
 
+#' Convenience function to format confidence limits for inline reporting
+#' functions.
 #' @noRd
 id_conf_limits <- function(tbl){
   if ("lower.CL" %in% colnames(tbl)){
@@ -129,6 +142,7 @@ id_conf_limits <- function(tbl){
   }
 }
 
+#' Convenience function to return stat for inline reporting functions.
 #' @noRd
 id_stat <- function(tbl){
   if (any(grepl("t.ratio", colnames(tbl)))){
